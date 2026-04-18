@@ -17,7 +17,7 @@ class Kmeans:
         algorithm.
     '''
 
-    def initialize_centroids(self, matrix: np.ndarray, number_of_centroids: int):
+    def initialize_centroids(self, matrix: np.ndarray, number_of_centroids: int, random_state: int = None):
         '''
         Initializes centroids for clusters. The first centroid is selected randomly from the documents. The next centroids will
         be given the coordinates of the farthest document from other centroids.
@@ -25,12 +25,14 @@ class Kmeans:
         Args:
             matrix (np.ndarray): TF-IDF matrix.
             number_of_centroids (int): An integer indicating the desired number of clusters.
+            random_state (int, optional): Random seed for reproducibility. Defaults to None.
 
         Returns:
             centroid_coordinates (np.ndarray): An array of centroid coordinates. Rows are centroids, columns are terms.
             distances (np.ndarray): An array of distances between documents and centroids. Rows are centroids, columns are documents.
         '''
 
+        random.seed(random_state)
         matrix_shape = matrix.shape
         centroid_coordinates = np.zeros((number_of_centroids, matrix_shape[1]))#Rows are centroids, columns are terms
         distances = np.zeros((number_of_centroids, matrix_shape[0]))#Rows are centroids, columns are documents
